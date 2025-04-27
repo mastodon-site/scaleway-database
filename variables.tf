@@ -42,3 +42,9 @@ variable "private_network_id" {
   description = "ID of the private network in which to place the database"
   type        = string
 }
+
+variable "volume_type" {
+  description = "Volume type to use for the database instance"
+  type        = string
+  default     = "sbs_15k"
+}

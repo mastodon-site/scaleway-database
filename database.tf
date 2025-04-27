@@ -17,7 +17,7 @@ resource "scaleway_rdb_instance" "main" {
   is_ha_cluster             = var.database_highly_available
   user_name                 = "uuid-${random_uuid.db_username.result}"
   password                  = random_password.db_password.result
-  volume_type               = "bssd"
+  volume_type               = var.volume_type
   volume_size_in_gb         = var.database_storage_size_gb
   disable_backup            = false
   backup_schedule_frequency = 24 # every day
