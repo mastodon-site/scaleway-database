@@ -1,3 +1,11 @@
+locals {
+  rdb_settings = merge(
+    var.database_max_connections != null ? { "max_connections" = var.database_max_connections } : {},
+    var.database_statement_timeout != null ? { "statement_timeout" = var.database_statement_timeout } : {},
+    var.database_idle_in_transaction_session_timeout != null ? { "idle_in_transaction_session_timeout" = var.database_idle_in_transaction_session_timeout } : {},
+  )
+}
+
 resource "random_uuid" "db_username" {
 }
 
@@ -27,9 +35,7 @@ resource "scaleway_rdb_instance" "main" {
     pn_id = var.private_network_id
   }
 
-  settings = {
-    "max_connections" = var.database_max_connections
-  }
+  settings = local.rdb_settings
 }
 
 resource "scaleway_rdb_acl" "main" {
