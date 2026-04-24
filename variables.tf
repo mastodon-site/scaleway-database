@@ -23,10 +23,28 @@ variable "database_storage_size_gb" {
 }
 
 variable "database_max_connections" {
-  description = "Maximum connections to the database"
+  description = "Scaleway RDB max_connections. Omit (null) to leave the engine default."
   type        = string
-  default     = "1000"
+  default     = null
+  nullable    = true
 }
+
+# Optional advanced PostgreSQL settings (Scaleway RDB). Omit (null) to leave the engine default.
+# For timeouts, Scaleway expects milliseconds as a string integer (e.g. 600000 for 10m), not interval strings like 10m.
+variable "database_statement_timeout" {
+  description = "Postgres statement_timeout. Scaleway: string integer, milliseconds (e.g. 600000 = 10m)."
+  type        = string
+  default     = null
+  nullable    = true
+}
+
+variable "database_idle_in_transaction_session_timeout" {
+  description = "Postgres idle_in_transaction_session_timeout. Scaleway: string integer, milliseconds (e.g. 300000 = 5m)."
+  type        = string
+  default     = null
+  nullable    = true
+}
+
 variable "database_name" {
   description = "Name of the database instance to create"
   type        = string
