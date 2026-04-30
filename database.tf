@@ -27,6 +27,7 @@ resource "scaleway_rdb_instance" "main" {
   password                  = random_password.db_password.result
   volume_type               = var.volume_type
   volume_size_in_gb         = var.database_storage_size_gb
+  encryption_at_rest        = true
   disable_backup            = false
   backup_schedule_frequency = 24 # every day
   backup_schedule_retention = 7  # keep it one week
